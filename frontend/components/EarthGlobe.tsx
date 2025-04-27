@@ -60,8 +60,12 @@ const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => 
     handleClick(lat, lng);
   };
 
-  const handleHeatmapClick = ({ lat, lng }: { lat: number; lng: number }) => {
-    handleClick(lat, lng);
+  const handleHeatmapClick = (
+    _heatmap: object,
+    _event: unknown,
+    coords: { lat: number; lng: number; altitude: number }
+  ) => {
+    handleClick(coords.lat, coords.lng);
   };
 
   const handleClick = (lat: number, lng: number) => {
