@@ -1,17 +1,5 @@
-'use client'
-import EarthGlobe from '@/components/EarthGlobe';
-import EarthLoading from '@/components/EarthLoading';
-import dynamic from 'next/dynamic';
-
-const DynamicEarthGlobe = dynamic(() => import('@/components/EarthGlobe'), {
-  ssr: false,
-  loading: () => <EarthLoading />, // Optional loading indicator
-});
+import CesiumMap from '@/components/CesiumMap';   // import direct
 
 export default function Home() {
-  return (
-    <div>
-      <DynamicEarthGlobe />
-    </div>
-  );
+  return <CesiumMap />;      // ça marche, aucune SSR
 }
