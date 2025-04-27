@@ -73,7 +73,7 @@ const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => 
   };
 
   const handleClick = (lat: number, lng: number) => {
-    globeEl.current.pointOfView({ lat: lat, lng: lng, altitude: 1 }, 1000);
+    globeEl.current?.pointOfView({ lat: lat, lng: lng, altitude: 1 }, 1000);
     console.log(`Clicked at Latitude: ${lat}, Longitude: ${lng}`);
     // You can set state or perform other actions here
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-geo-data`, {
@@ -98,7 +98,7 @@ const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => 
     const lat = (data.lat);
     const lng = (data.lng);
     handleClick(lat, lng);
-    globeEl.current.pointOfView({ lat: lat, lng: lng, altitude: 1 }, 1000);
+    globeEl.current?.pointOfView({ lat: lat, lng: lng, altitude: 1 }, 1000);
   };
 
 
