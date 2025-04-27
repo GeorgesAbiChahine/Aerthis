@@ -18,7 +18,7 @@ interface EarthGlobeProps {
 
 
 const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => {
-  const globeEl = useRef<GlobeMethods | null>(null);
+  const globeEl = useRef<GlobeMethods | undefined>(null);
   const [globeReady, setGlobeReady] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
   const [jsonData, setJsonData] = useState<PopupData | null>(null);
