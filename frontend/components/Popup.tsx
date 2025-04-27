@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Popup.module.css";
 
 interface PopupData {
-  jsonData: PopupData | null;
+  
   "Air Quality Index": number;
   "Biggest Air Polluant": string;
   Country: string;
@@ -14,7 +14,13 @@ interface PopupData {
   "Recap of Pollution": string;
   "Solution Suggestion": string;
   "Temperature Difference": number;
+
 }
+
+interface PopupProps {
+  jsonData: PopupData | null;
+}
+
 
 const Popup: React.FC<PopupProps> = ({ jsonData }) => {
   const country = jsonData?.["Country"] ?? "No country selected";

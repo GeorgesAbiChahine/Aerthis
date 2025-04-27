@@ -64,18 +64,11 @@ const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => 
     }
   }, [globeReady]); // Re-run if globe becomes ready
 
-  const handleGlobeClick = (
-    { lat, lng }: { lat: number; lng: number },
-    _event: unknown
-  ) => {
+  const handleGlobeClick = ({ lat, lng }: { lat: number; lng: number }) => {
     handleClick(lat, lng);
   };
 
-  const handleHeatmapClick = (
-    _heatmap: unknown,
-    _event: unknown,
-    { lat, lng }: { lat: number; lng: number }
-  ) => {
+  const handleHeatmapClick = ({ lat, lng }: { lat: number; lng: number }) => {
     handleClick(lat, lng);
   };
 
