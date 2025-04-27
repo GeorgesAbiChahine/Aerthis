@@ -24,42 +24,41 @@ export interface PopupProps {
 
 const Popup: React.FC<PopupProps> = ({ jsonData }) => {
   const country = jsonData?.["Country"] ?? "No country selected";
-  let GDP =
-    new Intl.NumberFormat("en-US", { maximumSignificantDigits: 4 }).format(
-      jsonData?.["GDP"] / 1000000000,
-    ) ?? "-";
-  if (GDP !== "-") {
+  let GDP = "-";
+  if (jsonData?.["GDP"] !== undefined) {
+    GDP = new Intl.NumberFormat("en-US", { maximumSignificantDigits: 4 }).format(
+      jsonData["GDP"] / 1000000000
+    );
     GDP = `US$${GDP}B`;
   }
-  let disasterSpending =
-    new Intl.NumberFormat("en-US", { maximumSignificantDigits: 4 }).format(
-      jsonData?.["Disaster Spending"] / 1000000,
-    ) ?? "-";
-  if (disasterSpending !== "-") {
+  let disasterSpending = "-";
+  if (jsonData?.["Disaster Spending"] !== undefined) {
+    disasterSpending = new Intl.NumberFormat("en-US", { maximumSignificantDigits: 4 }).format(
+      jsonData["Disaster Spending"] / 1000000
+    );
     disasterSpending = `US$${disasterSpending}M`;
   }
-  let percentageGDPusedOnDisasterSpending =
-    new Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(
-      jsonData?.["Percentage of GDP used on disaster spending"],
-    ) ?? "-";
-  if (percentageGDPusedOnDisasterSpending !== "-") {
+  let percentageGDPusedOnDisasterSpending = "-";
+  if (jsonData?.["Percentage of GDP used on disaster spending"] !== undefined) {
+    percentageGDPusedOnDisasterSpending = new Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(
+      jsonData["Percentage of GDP used on disaster spending"]
+    );
     percentageGDPusedOnDisasterSpending = `${percentageGDPusedOnDisasterSpending}%`;
   }
   const dominantPollutants = jsonData?.["Dominant Pollutants"] ?? "-";
-  let plasticPollution =
-    jsonData?.["Plastic Pollution"]?.toLocaleString() ?? "-";
-  if (plasticPollution !== "-") {
-    plasticPollution = `${plasticPollution}t`;
+  let plasticPollution = "-";
+  if (jsonData?.["Plastic Pollution"] !== undefined) {
+    plasticPollution = `${jsonData["Plastic Pollution"].toLocaleString()}t`;
   }
   const recapOfPollution = jsonData?.["Recap of Pollution"] ?? "-";
   const solution = jsonData?.["Solution Suggestion"] ?? "-";
   const aqi = jsonData?.["Air Quality Index"] ?? "-";
   const biggestPollutant = jsonData?.["Biggest Air Polluant"] ?? "-";
-  let temperatureDiff =
-    new Intl.NumberFormat("en-US", { maximumSignificantDigits: 4 }).format(
-      jsonData?.["Temperature Difference"],
-    ) ?? "-";
-  if (temperatureDiff !== "-") {
+  let temperatureDiff = "-";
+  if (jsonData?.["Temperature Difference"] !== undefined) {
+    temperatureDiff = new Intl.NumberFormat("en-US", { maximumSignificantDigits: 4 }).format(
+      jsonData["Temperature Difference"]
+    );
     temperatureDiff = `+${temperatureDiff}°C`;
   }
 
