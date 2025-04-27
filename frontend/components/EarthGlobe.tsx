@@ -128,13 +128,13 @@ const EarthGlobe: React.FC<any> = ({ heatmapData, plasticData }) => {
           
           // --- Future Heatmap Prop ---
           // heatmapsData={[[{"lat": 0, "lng": 0, "aqi": 1}, {"lat": 0, "lng": -10, "aqi": 2}]]} // Data for heatmap
-          heatmapsData={airToggle ? [heatmapData] : [[]]}
+          heatmapsData={airToggle ? [heatmapData] : [[{}]]}
           heatmapPointLat="lat"
           heatmapPointLng="lng"
           heatmapPointWeight="aqi"
 
           // pointsData={[{"lat": 0, "lng": 0}, {"lat": 0, "lng": -10}]}
-          pointsData={plasticToggle ? plasticData : []}
+          pointsData={plasticToggle ? plasticData : [{}]}
           pointAltitude={0}
           pointColor={() => "purple"}
 
