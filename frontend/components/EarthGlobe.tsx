@@ -4,7 +4,6 @@ import Globe from 'react-globe.gl';
 import EarthLoading from './EarthLoading';
 import Popup from './Popup';
 import SearchBar from './SearchBar';
-import { isAbsolute } from 'path';
 
 import type { GlobeMethods } from 'react-globe.gl';
 
@@ -65,13 +64,16 @@ const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => 
     }
   }, [globeReady]); // Re-run if globe becomes ready
 
-  const handleGlobeClick = ({ lat, lng }: { lat: number; lng: number }, event: Event) => {
+  const handleGlobeClick = (
+    { lat, lng }: { lat: number; lng: number },
+    _event: unknown
+  ) => {
     handleClick(lat, lng);
   };
 
   const handleHeatmapClick = (
     _heatmap: unknown,
-    event: unknown,
+    _event: unknown,
     { lat, lng }: { lat: number; lng: number }
   ) => {
     handleClick(lat, lng);
@@ -81,7 +83,7 @@ const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => 
     globeEl.current.pointOfView({ lat: lat, lng: lng, altitude: 1 }, 1000);
     console.log(`Clicked at Latitude: ${lat}, Longitude: ${lng}`);
     // You can set state or perform other actions here
-    + fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-geo-data`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-geo-data`, {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify({ lat, lng }),

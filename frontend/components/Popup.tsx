@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Popup.module.css";
 
 interface PopupData {
+  jsonData: PopupData | null;
   "Air Quality Index": number;
   "Biggest Air Polluant": string;
   Country: string;
@@ -15,7 +16,7 @@ interface PopupData {
   "Temperature Difference": number;
 }
 
-const Popup = ({ jsonData }: { jsonData: any }) => {
+const Popup: React.FC<PopupProps> = ({ jsonData }) => {
   const country = jsonData?.["Country"] ?? "No country selected";
   let GDP =
     new Intl.NumberFormat("en-US", { maximumSignificantDigits: 4 }).format(
