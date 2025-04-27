@@ -9,15 +9,7 @@ import type { GlobeMethods } from 'react-globe.gl';
 
 interface HeatmapPoint { lat: number; lng: number; aqi: number; }
 interface PlasticPoint { lat: number; lng: number; }
-interface PopupData {
-  Country: string;
-  GDP: number;
-  "Disaster Spending": number;
-  "Percentage of GDP used on disaster spending": number;
-  "Temperature Difference": number;
-  "Air Quality Index": number;
-  "Biggest Air Polluant": string;
-}
+
 interface EarthGlobeProps {
   heatmapData: HeatmapPoint[];
   plasticData: PlasticPoint[];
