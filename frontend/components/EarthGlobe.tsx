@@ -6,11 +6,31 @@ import Popup from './Popup';
 import SearchBar from './SearchBar';
 import { isAbsolute } from 'path';
 
+import type { GlobeMethods } from 'react-globe.gl';
+
+interface HeatmapPoint { lat: number; lng: number; aqi: number; }
+interface PlasticPoint { lat: number; lng: number; }
+interface PopupData {
+  Country: string;
+  GDP: number;
+  "Disaster Spending": number;
+  "Percentage of GDP used on disaster spending": number;
+  "Temperature Difference": number;
+  "Air Quality Index": number;
+  "Biggest Air Polluant": string;
+}
+interface EarthGlobeProps {
+  heatmapData: HeatmapPoint[];
+  plasticData: PlasticPoint[];
+}
+
+
+
 const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => {
-  const globeEl = useRef<any>(null);
+  const globeEl = useRef<GlobeMethods | null>(null);
   const [globeReady, setGlobeReady] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
-  const [jsonData, setJsonData] = useState<any>(null);
+  const [jsonData, setJsonData] = useState<PopupData | null>(null);
   const isMounted = useRef(false);
   
 
@@ -49,7 +69,11 @@ const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => 
     handleClick(lat, lng);
   };
 
-  const handleHeatmapClick = (heatmap: any, event: Event, { lat, lng, altitude }: { lat: number; lng: number, altitude: number }) => {
+  const handleHeatmapClick = (
+    _heatmap: unknown,
+    event: unknown,
+    { lat, lng }: { lat: number; lng: number }
+  ) => {
     handleClick(lat, lng);
   };
 
@@ -57,23 +81,20 @@ const EarthGlobe: React.FC<EarthGlobeProps> = ({ heatmapData, plasticData }) => 
     globeEl.current.pointOfView({ lat: lat, lng: lng, altitude: 1 }, 1000);
     console.log(`Clicked at Latitude: ${lat}, Longitude: ${lng}`);
     // You can set state or perform other actions here
-    const response = fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-geo-data`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ lat, lng }),
-      credentials: 'include',
-    }).then((res) => {
-      return res.json()
-    }).then((data) => {
-      console.log(data);
-      setJsonData(data);
-      // Handle the response data as needed
-    });
+    + fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-geo-data`, {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({ lat, lng }),
+         credentials: 'include',
+       })
+         .then(res => res.json())
+         .then(data => {
+           console.log(data);
+           setJsonData(data);
+      });
   }
 
-  const handleSearch = (data: any) => {
+  const handleSearch = (data: { lat: number; lng: number }) => {
     if (!data.lat) {
       alert("No country was found.");
       return;

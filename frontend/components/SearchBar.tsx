@@ -1,15 +1,18 @@
-"use client";
+ "use client";
 
-import React from "react";
-import "./SearchBar.css";
-import { FaSearch } from "react-icons/fa";
-
-const SearchBar = ({ handleSearch }: any) => {
+ import React from "react";
+ import "./SearchBar.css";
+ import { FaSearch } from "react-icons/fa";
+ 
+ interface SearchBarProps {
+   handleSearch: (data: { lat: number; lng: number }) => void;
+ }
+ const SearchBar: React.FC<SearchBarProps> = ({ handleSearch }) => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); // Prevents page reload
 
     const formData = new FormData(event.currentTarget);
-    const search = formData.get("search");
+    const search = formData.get("search") as string;
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/get-coordinates`, {
       method: "POST",
