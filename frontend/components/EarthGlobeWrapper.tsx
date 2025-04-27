@@ -2,6 +2,9 @@
 import EarthLoading from '@/components/EarthLoading';
 import dynamic from 'next/dynamic';
 
+interface HeatmapPoint { lat: number; lng: number; aqi: number }
+interface PlasticPoint { lat: number; lng: number }
+
 const DynamicEarthGlobe = dynamic(
   () => import('@/components/EarthGlobe'),
   { ssr: false, loading: () => <EarthLoading /> }
