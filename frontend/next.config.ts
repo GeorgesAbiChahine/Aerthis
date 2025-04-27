@@ -1,20 +1,49 @@
-// next.config.js
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const path              = require('path');
+// next.config.ts
+import path from 'path';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import type { Configuration, WebpackPluginInstance } from 'webpack';
+import type { NextConfig } from 'next';
 
-module.exports = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
 
-  webpack: (config, { isServer, webpack }) => {
+  webpack(
+    config: Configuration & { plugins: WebpackPluginInstance[] },
+    { isServer, webpack }
+  ) {
     // Copie Workers, Widgets, Assets, ThirdParty → public/Cesium
     if (!isServer) {
       config.plugins.push(
         new CopyWebpackPlugin({
           patterns: [
-            { from: path.join(__dirname, 'node_modules/cesium/Build/Cesium/Workers'),   to: 'public/Cesium/Workers'   },
-            { from: path.join(__dirname, 'node_modules/cesium/Build/Cesium/ThirdParty'),to: 'public/Cesium/ThirdParty'},
-            { from: path.join(__dirname, 'node_modules/cesium/Build/Cesium/Assets'),    to: 'public/Cesium/Assets'    },
-            { from: path.join(__dirname, 'node_modules/cesium/Build/Cesium/Widgets'),   to: 'public/Cesium/Widgets'   },
+            {
+              from: path.join(
+                __dirname,
+                'node_modules/cesium/Build/Cesium/Workers'
+              ),
+              to: 'public/Cesium/Workers',
+            },
+            {
+              from: path.join(
+                __dirname,
+                'node_modules/cesium/Build/Cesium/ThirdParty'
+              ),
+              to: 'public/Cesium/ThirdParty',
+            },
+            {
+              from: path.join(
+                __dirname,
+                'node_modules/cesium/Build/Cesium/Assets'
+              ),
+              to: 'public/Cesium/Assets',
+            },
+            {
+              from: path.join(
+                __dirname,
+                'node_modules/cesium/Build/Cesium/Widgets'
+              ),
+              to: 'public/Cesium/Widgets',
+            },
           ],
         })
       );
@@ -27,9 +56,11 @@ module.exports = {
       })
     );
 
-    // Patch pour éviter un bug d'exports dans Cesium + webpack 5
-    config.resolve.exportsFields = [];
+    // Patch pour éviter un bug d’exports dans Cesium + webpack 5
+    config.resolve!.exportsFields = [];
 
     return config;
   },
 };
+
+export default nextConfig;
