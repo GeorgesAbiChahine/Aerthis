@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Globe from 'react-globe.gl';
 import EarthLoading from './EarthLoading';
 import Popup from './Popup';
@@ -14,7 +14,7 @@ const EarthGlobe: React.FC<any> = ({ heatmapData, plasticData }) => {
   
   const [airToggle, setAirToggle] = useState(true);
   const [plasticToggle, setPlasticToggle] = useState(true);
-  
+
   document.getElementById("airToggle")?.addEventListener("click", () => {
     setAirToggle(!airToggle);
   })
@@ -128,7 +128,7 @@ const EarthGlobe: React.FC<any> = ({ heatmapData, plasticData }) => {
           
           // --- Future Heatmap Prop ---
           // heatmapsData={[[{"lat": 0, "lng": 0, "aqi": 1}, {"lat": 0, "lng": -10, "aqi": 2}]]} // Data for heatmap
-          heatmapsData={airToggle ? [heatmapData] : []}
+          heatmapsData={airToggle ? [heatmapData] : [[]]}
           heatmapPointLat="lat"
           heatmapPointLng="lng"
           heatmapPointWeight="aqi"
@@ -137,6 +137,8 @@ const EarthGlobe: React.FC<any> = ({ heatmapData, plasticData }) => {
           pointsData={plasticToggle ? plasticData : []}
           pointAltitude={0}
           pointColor={() => "purple"}
+
+          pathsData={[[[0, 0, 0], [0, -10, 0]]]}
 
           // heatmapsTransitionDuration={3000}
           onHeatmapClick={handleHeatmapClick} // Handle clicks on the heatmap

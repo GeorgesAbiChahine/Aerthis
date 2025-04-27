@@ -55,6 +55,7 @@ def get_data(coords):
     gemini_response['Temperature Difference'] = tmp
     gemini_response['Air Quality Index'] = data_aqi["aqi"]
     gemini_response['Biggest Air Polluant'] = data_aqi["dom"]
+    gemini_response['Country Code'] = country_code_3_letter
     return gemini_response
     
 @app.after_request
