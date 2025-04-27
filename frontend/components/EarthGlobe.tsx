@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Globe from 'react-globe.gl';
 import EarthLoading from './EarthLoading';
-import Popup from './Popup';
+import Popup, { PopupData } from './Popup';
 import SearchBar from './SearchBar';
 
 import type { GlobeMethods } from 'react-globe.gl';

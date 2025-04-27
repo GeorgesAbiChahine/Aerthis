@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Popup.module.css";
 
-interface PopupData {
+export interface PopupData {
   
   "Air Quality Index": number;
   "Biggest Air Polluant": string;
@@ -17,7 +17,7 @@ interface PopupData {
 
 }
 
-interface PopupProps {
+export interface PopupProps {
   jsonData: PopupData | null;
 }
 
